@@ -122,7 +122,7 @@ fun ConfirmPhotoScreen(
         ) {
             // ── Arte decorativa superior ──────────────────────────────
             Image(
-                painter            = painterResource(R.drawable.art_top_v2),
+                painter            = painterResource(R.drawable.home_art_top),
                 contentDescription = null,
                 contentScale       = ContentScale.FillWidth,
                 alignment          = Alignment.TopCenter,

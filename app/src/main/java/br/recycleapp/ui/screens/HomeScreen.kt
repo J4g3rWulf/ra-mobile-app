@@ -141,7 +141,7 @@ fun HomeScreen(
             // A altura fixa evita que o espaço transparente do PNG
             // interfira no posicionamento dos elementos acima.
             Image(
-                painter            = painterResource(id = R.drawable.art_bottom_home),
+                painter            = painterResource(id = R.drawable.home_art_bottom),
                 contentDescription = null,
                 modifier           = Modifier
                     .align(Alignment.BottomCenter)
