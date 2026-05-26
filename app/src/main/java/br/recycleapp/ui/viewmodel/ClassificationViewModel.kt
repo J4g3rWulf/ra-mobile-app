@@ -43,4 +43,9 @@ class ClassificationViewModel(app: Application) : AndroidViewModel(app) {
         _imageUri = Uri.EMPTY
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        classifyImageUseCase.dispose()
+    }
+
 }
