@@ -2,6 +2,7 @@ package br.recycleapp.ui.screens
 
 import android.Manifest
 import android.content.Context
+import androidx.core.net.toUri
 import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -11,8 +12,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.FileProvider
@@ -25,7 +28,7 @@ fun CameraCaptureScreen(
     onBack: () -> Unit,
     onPhotoTaken: (String) -> Unit
 ) {
-    val pendingUri = remember { mutableStateOf<Uri?>(null) }
+    var pendingUriStr by rememberSaveable { mutableStateOf<String?>(null) }
     val ctx = LocalContext.current
 
     // helper para abrir a câmera já com um arquivo temporário no cache
@@ -39,14 +42,14 @@ fun CameraCaptureScreen(
             "${context.packageName}.fileprovider",
             image
         )
-        pendingUri.value = uri
+        pendingUriStr = uri.toString()
         launcher.launch(uri)
     }
 
     val takePictureLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { success ->
-        val u = pendingUri.value
+        val u = pendingUriStr?.toUri()
         Log.d("CAM", "takePicture success=$success, uri=$u")
 
         if (success && u != null) {
@@ -57,11 +60,10 @@ fun CameraCaptureScreen(
             )
             onPhotoTaken(u.toString())
         } else {
-            // Usuário apertou VOLTAR na câmera (ou falhou): limpa e volta pra Home
-            u?.toString()?.tryDeleteCapturedCacheFile(ctx)
+            pendingUriStr?.tryDeleteCapturedCacheFile(ctx)
             onBack()
         }
-        pendingUri.value = null
+        pendingUriStr = null
     }
 
     val requestCamera = rememberLauncherForActivityResult(
