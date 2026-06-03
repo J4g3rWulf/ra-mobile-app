@@ -6,7 +6,7 @@
 >
 > 👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/ra-cnn-training)
 
-> Este projeto foi desenvolvido como TCC do curso de Ciência da Computação — Universidade Veiga de Almeida, e segue em evolução voluntária após a entrega.
+> Este projeto foi desenvolvido como TCC do curso de Ciência da Computação - Universidade Veiga de Almeida, e segue em evolução voluntária após a entrega.
 
 ---
 
@@ -20,7 +20,7 @@ Baixe o arquivo `app-release.apk` da última release e instale no dispositivo An
 
 ---
 
-## 📸 Demonstração
+## 📸 Telas
 
 <table>
   <tr>
@@ -29,13 +29,13 @@ Baixe o arquivo `app-release.apk` da última release e instale no dispositivo An
     <td align="center"><img src="docs/screenshots/6-tela-do-mapa.jpg" width="200"/><br/><sub>Mapa de pontos de coleta</sub></td>
   </tr>
   <tr>
+    <td align="center"><img src="docs/screenshots/7.1-tela-aprender.jpg" width="200"/><br/><sub>Aprenda sobre resíduos</sub></td>
     <td align="center"><img src="docs/screenshots/7.3-tela-de-o-que-descartar.jpg" width="200"/><br/><sub>O que descartar</sub></td>
     <td align="center"><img src="docs/screenshots/8.1-tela-de-programas-e-parcerias.jpg" width="200"/><br/><sub>Programas e parcerias</sub></td>
-    <td></td>
   </tr>
 </table>
 
-### 🎬 Vídeo de demonstração
+## 🎬 Vídeo de demonstração
 
 [![Demonstração do RecycleApp](https://img.youtube.com/vi/BESSs0dSrfA/maxresdefault.jpg)](https://youtu.be/BESSs0dSrfA)
 
@@ -43,11 +43,11 @@ Baixe o arquivo `app-release.apk` da última release e instale no dispositivo An
 
 ## 📈 Evolução do projeto
 
-### Fase 1 — TCC
+### Fase 1 - TCC
 
 O app foi entregue com foco no fluxo central de classificação de resíduos: captura de foto, análise por rede neural e exibição do resultado. O modelo utilizado era uma CNN customizada com **74% de F1-score**, integrada via TensorFlow Lite.
 
-### Fase 2 — Pós-TCC
+### Fase 2 - Pós-TCC
 
 Após a entrega e aprovação do TCC, o projeto foi expandido voluntariamente em duas frentes:
 
@@ -124,7 +124,7 @@ Toda a classificação é feita **localmente no aparelho**, sem enviar a imagem 
 
 ## 🧠 Como funciona a IA
 
-O modelo `model_efficientnet_v2.tflite` recebe uma imagem **256×256 RGB** com valores de pixel `[0–255]`. O pré-processamento é interno ao modelo via `include_preprocessing=True` do EfficientNetV2B0 — o app envia os pixels brutos sem normalização.
+O modelo `model_efficientnet_v2.tflite` recebe uma imagem **256×256 RGB** com valores de pixel `[0–255]`. O pré-processamento é interno ao modelo via `include_preprocessing=True` do EfficientNetV2B0 - o app envia os pixels brutos sem normalização.
 
 O modelo foi treinado para **10 classes finas**:
 
@@ -143,7 +143,7 @@ A classe `TrashClassifier.kt` gerencia:
 4. Execução do modelo e seleção do índice de maior probabilidade
 5. Mapeamento da classe fina para o material exibido na interface
 
-O `ClassifierRepository.kt` aplica o `CONFIDENCE_THRESHOLD = 0.65f` — resultados abaixo de 65% de confiança são tratados como "Indefinido".
+O `ClassifierRepository.kt` aplica o `CONFIDENCE_THRESHOLD = 0.65f` - resultados abaixo de 65% de confiança são tratados como "Indefinido".
 
 ---
 
@@ -266,7 +266,7 @@ cd ra-mobile-app
 ```
 
 ```bash
-# 3. Configurar a chave da Maps API (opcional — mapa funciona com OSM sem ela)
+# 3. Configurar a chave da Maps API (opcional - mapa funciona com OSM sem ela)
 # Adicionar em local.properties:
 MAPS_API_KEY=sua_chave_aqui
 ```
@@ -280,14 +280,14 @@ MAPS_API_KEY=sua_chave_aqui
 
 ## 📎 Projeto relacionado
 
-**Rede Neural — Classificador de Resíduos (TensorFlow / TensorFlow Lite)**
+**Rede Neural - Classificador de Resíduos (TensorFlow / TensorFlow Lite)**
 👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/ra-cnn-training)
 
 ---
 
 ## 👥 Equipe
 
-Projeto desenvolvido como TCC do curso de Ciência da Computação — Universidade Veiga de Almeida. Melhorias pós-TCC realizadas voluntariamente.
+Projeto desenvolvido como TCC do curso de Ciência da Computação - Universidade Veiga de Almeida. Melhorias pós-TCC realizadas voluntariamente.
 
 - **Caio Marcelino Gomes**
 - **Davi Millan Alves**
