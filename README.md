@@ -3,7 +3,8 @@
 > Aplicativo Android que usa **rede neural (TensorFlow Lite)** para identificar o tipo de resíduo a partir de uma foto e orientar o descarte correto do material.
 
 > Os scripts de **treinamento, avaliação e conversão do modelo de IA** estão em um repositório separado:
-> 👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/solid-dollop)
+>
+> 👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/ra-cnn-training)
 
 > Este projeto foi desenvolvido como TCC do curso de Ciência da Computação — Universidade Veiga de Almeida, e segue em evolução voluntária após a entrega.
 
@@ -13,9 +14,30 @@
 
 Para instalar diretamente no celular, sem precisar abrir o projeto no Android Studio:
 
-👉 [Download do APK (Release v1.0.0)](../../releases/latest)
+👉 [Download do APK (Release v2.0.0)](https://github.com/J4g3rWulf/ra-mobile-app/releases/latest)
 
 Baixe o arquivo `app-release.apk` da última release e instale no dispositivo Android.
+
+---
+
+## 📸 Demonstração
+
+<table>
+  <tr>
+    <td align="center"><img src="docs/screenshots/2-tela-da-home.jpg" width="200"/><br/><sub>Identifique o material</sub></td>
+    <td align="center"><img src="docs/screenshots/5.1-tela-de-resultado-vidro.jpg" width="200"/><br/><sub>Resultado da classificação</sub></td>
+    <td align="center"><img src="docs/screenshots/6-tela-do-mapa.jpg" width="200"/><br/><sub>Mapa de pontos de coleta</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/screenshots/7.3-tela-de-o-que-descartar.jpg" width="200"/><br/><sub>O que descartar</sub></td>
+    <td align="center"><img src="docs/screenshots/8.1-tela-de-programas-e-parcerias.jpg" width="200"/><br/><sub>Programas e parcerias</sub></td>
+    <td></td>
+  </tr>
+</table>
+
+### 🎬 Vídeo de demonstração
+
+[![Demonstração do RecycleApp](https://img.youtube.com/vi/BESSs0dSrfA/maxresdefault.jpg)](https://youtu.be/BESSs0dSrfA)
 
 ---
 
@@ -30,6 +52,7 @@ O app foi entregue com foco no fluxo central de classificação de resíduos: ca
 Após a entrega e aprovação do TCC, o projeto foi expandido voluntariamente em duas frentes:
 
 **App Android:**
+
 - Navegação por abas com `BottomNavBar` customizada (Home, Mapa, Aprender, Programas)
 - Tela de mapa interativo com **153 pontos de coleta reais** da região metropolitana do Rio de Janeiro, carregados via **Cloud Firestore** com fallback offline
 - Seção educativa completa (cores das lixeiras CONAMA, o que descartar, como descartar, termos e definições)
@@ -37,14 +60,15 @@ Após a entrega e aprovação do TCC, o projeto foi expandido voluntariamente em
 - Arquitetura Clean Architecture + Service Locator
 
 **Modelo de IA:**
+
 - Migração da CNN customizada para **EfficientNetV2B0 com transfer learning**
 - **96% de F1-score** no conjunto de teste (era 74% no TCC)
 - `CONFIDENCE_THRESHOLD` ajustado de 40% para 65%
 
-| Versão | Modelo | F1-score | Funcionalidades |
-|---|---|---|---|
-| TCC | CNN customizada (`model_v03.tflite`) | 74% | Classificação + resultado |
-| Pós-TCC | EfficientNetV2B0 (`model_efficientnet_v2.tflite`) | **96%** | + Mapa + Aprender + Programas |
+| Versão  | Modelo                                            | F1-score | Funcionalidades               |
+| ------- | ------------------------------------------------- | -------- | ----------------------------- |
+| TCC     | CNN customizada (`model_v03.tflite`)              | 74%      | Classificação + resultado     |
+| Pós-TCC | EfficientNetV2B0 (`model_efficientnet_v2.tflite`) | **96%**  | + Mapa + Aprender + Programas |
 
 ---
 
@@ -67,6 +91,7 @@ Toda a classificação é feita **localmente no aparelho**, sem enviar a imagem 
 ## ✨ Funcionalidades
 
 ### Fluxo de classificação
+
 - Captura via câmera com permissão em tempo de execução
 - Seletor nativo de galeria (Photo Picker)
 - Tela de confirmação antes de enviar para análise
@@ -75,6 +100,7 @@ Toda a classificação é feita **localmente no aparelho**, sem enviar a imagem 
 - Tratamento de baixa confiança — resultado exibido como "Indefinido" quando abaixo de 65%
 
 ### Mapa de pontos de coleta
+
 - **153 pontos reais** cobrindo Rio de Janeiro, Niterói, São Gonçalo, Duque de Caxias e Angra dos Reis
 - Suporte a **Google Maps** (quando disponível) e **OpenStreetMap** como fallback offline
 - Clustering de pins para melhor visualização em zoom reduzido
@@ -83,12 +109,14 @@ Toda a classificação é feita **localmente no aparelho**, sem enviar a imagem 
 - Dados carregados via **Cloud Firestore** com cache local (SharedPreferences) e fallback estático
 
 ### Seção Aprender
-- **Cores das lixeiras** — carrossel com as 8 cores CONAMA (Resolução nº 275/2001)
+
+- **Cores das lixeiras** — carrossel com 8 cores CONAMA (Resolução nº 275/2001)
 - **O que descartar** — guia por categoria de material
 - **Como descartar** — orientações práticas por tipo de resíduo
 - **Termos e definições** — glossário de reciclagem com símbolos e identificações plásticas (PET, PEAD, PVC, etc.)
 
 ### Programas de reciclagem
+
 - Programas municipais organizados por categoria: Troque e Ganhe, Coleta Seletiva e Impacto Social
 - Cobertura: Recicla Niterói, Recicla PUDs, EcoCLIN, Recicla São Gonçalo, Light Recicla, Ecoenel, Óleo no Ponto
 
@@ -100,14 +128,15 @@ O modelo `model_efficientnet_v2.tflite` recebe uma imagem **256×256 RGB** com v
 
 O modelo foi treinado para **10 classes finas**:
 
-| Classe | Material |
-|---|---|
-| `glass_bottle`, `glass_cup` | Vidro |
-| `metal_can` | Metal |
-| `paper_bag`, `paper_ball`, `paper_milk_package`, `paper_package` | Papel |
-| `plastic_bottle`, `plastic_cup`, `plastic_transparent_cup` | Plástico |
+| Classe                                                           | Material |
+| ---------------------------------------------------------------- | -------- |
+| `glass_bottle`, `glass_cup`                                      | Vidro    |
+| `metal_can`                                                      | Metal    |
+| `paper_bag`, `paper_ball`, `paper_milk_package`, `paper_package` | Papel    |
+| `plastic_bottle`, `plastic_cup`, `plastic_transparent_cup`       | Plástico |
 
 A classe `TrashClassifier.kt` gerencia:
+
 1. Carregamento lazy do `Interpreter` TFLite (reutilizado entre classificações via Service Locator)
 2. Leitura da imagem a partir da URI
 3. Redimensionamento para 256×256 e conversão para `ByteBuffer` float32
@@ -209,13 +238,14 @@ Google Play Services disponível  →  Google Maps SDK (padrão)
 Google Play Services indisponível →  OpenStreetMap via osmdroid (fallback)
 ```
 
-Os dados foram coletados de planilhas municipais e carregados via script Python (`populate_firestore_v2.py`) no repositório da rede neural.
+Os dados foram coletados de planilhas municipais e carregados via script Python (`populate_firestore_v2.py`), disponível na pasta `scripts/` deste repositório.
 
 ---
 
 ## 🚀 Como executar localmente
 
 ### Pré-requisitos
+
 - Android Studio (Hedgehog ou superior)
 - JDK 17
 - Emulador Android ou dispositivo físico (API 24+)
@@ -225,8 +255,8 @@ Os dados foram coletados de planilhas municipais e carregados via script Python 
 
 ```bash
 # 1. Clonar o repositório
-git clone https://github.com/J4g3rWulf/automatic-happiness.git
-cd automatic-happiness
+git clone https://github.com/J4g3rWulf/ra-mobile-app.git
+cd ra-mobile-app
 ```
 
 ```bash
@@ -251,7 +281,7 @@ MAPS_API_KEY=sua_chave_aqui
 ## 📎 Projeto relacionado
 
 **Rede Neural — Classificador de Resíduos (TensorFlow / TensorFlow Lite)**
-👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/solid-dollop)
+👉 [Repositório da Rede Neural](https://github.com/J4g3rWulf/ra-cnn-training)
 
 ---
 
